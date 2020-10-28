@@ -18,7 +18,6 @@ struct book
 struct user
 {
     char user_id[10];
-    //issue 5 books at a time
     char issued[N_ALLOWED_F][10];
 } users[N_USERS];
 
@@ -143,6 +142,72 @@ int hasbook(struct user x, struct book y)
     return(0);
 }
 
+// book return
+struct user book_return(struct user x, struct book y)
+{
+    for(int i = 0; i < N_ALLOWED_F; i++)
+    {
+        if(strcmp(x.issued[i],y.book_id)==0)
+        {
+            strcpy(x.issued[i],"\0");
+            //add something to check if late return
+        }
+    }
+    return(x);
+}
+
+//book issue
+struct user book_issue(struct user x, struct book y)
+{
+    int status = 1;
+    int days;
+    char err_msg[100];
+
+    if(is_faculty(x))
+    {
+        if(n_issued(x) >= N_ALLOWED_F)
+        {
+            status = 0;
+            strcpy(err_msg,"You have already issued the maximum number of books allowed.\n");
+        }
+        else if(hasbook(x,y))
+        {
+            status = 0;
+            strcpy(err_msg,"You have already issued a copy of this book.\n");
+        }
+    }
+    else
+    {
+        if(n_issued(x) >= N_ALLOWED_S)
+        {
+            status = 0;
+            strcpy(err_msg,"You have already issued the maximum number of books allowed.\n");
+        }
+        else if(y.n_copies < 3)
+        {
+            status = 0;
+            strcpy(err_msg,"Students are not allowed to issue books with less than 3 copies.\n");
+        }
+        else if(hasbook(x,y))
+        {
+            status = 0;
+            strcpy(err_msg,"You have already issued a copy of this book.\n");
+        }
+    }
+
+    if(status == 1)
+    {
+       days = available_days(y);
+       strcpy(x.issued[n_issued(x)],y.book_id);
+       printf("Book succesfully issued.\n");
+    }
+    else
+    {
+        printf("%s",err_msg);
+    }
+    return(x);
+}
+
 // does the rest
 void main()
 {
@@ -151,51 +216,7 @@ void main()
     struct user use;
     boo = books[1];
     use = users[1];
-
-    int status = 1;
-    int days;
-    char err_msg[100];
-
-    if(is_faculty(use))
-    {
-        if(n_issued(use) >= N_ALLOWED_F)
-        {
-            status = 0;
-            strcpy(err_msg,"You have already issued the maximum number of books allowed.");
-        }
-        else if(hasbook(use,boo))
-        {
-            status = 0;
-            strcpy(err_msg,"You have already issued a copy of this book.");
-        }
-    }
-    else
-    {
-        if(n_issued(use) >= N_ALLOWED_S)
-        {
-            status = 0;
-            strcpy(err_msg,"You have already issued the maximum number of books allowed.");
-        }
-        else if(boo.n_copies < 3)
-        {
-            status = 0;
-            strcpy(err_msg,"Students are not allowed to issue books with less than 3 copies.");
-        }
-        else if(hasbook(use,boo))
-        {
-            status = 0;
-            strcpy(err_msg,"You have already issued a copy of this book.");
-        }
-    }
-
-    if(status == 1)
-    {
-       days = available_days(boo);
-       strcpy(use.issued[n_issued(use)],boo.book_id);
-    }
-    else
-    {
-        printf("%s",err_msg);
-    }
-    // printf("%s",use.issued[3]);
+    use = book_issue(use,boo);
+    use = book_return(use,boo); 
+    use = book_issue(use,boo);
 }
