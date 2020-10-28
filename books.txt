@@ -1,0 +1,8 @@
+ID;Title;Author;Publisher;Number
+HPJK1;Harry Potter and The Philosopher's Stone;JK Rowling;Bloomsbury Publ.;2
+HPJK2;Harry Potter and The Chamber of Secrets;JK Rowling;Bloomsbury Publ.;3
+HPJK3;Harry Potter and The Prisoner of Azkaban;JK Rowling;Bloomsbury Publ.;4
+HPJK4;Harry Potter and The Goblet of Fire;JK Rowling;Bloomsbury Publ.;5
+HPJK5;Harry Potter and The Order of the Phoenix;JK Rowling;Bloomsbury Publ.;6
+HPJK6;Harry Potter and The Half-Blood Prince;JK Rowling;Bloomsbury Publ.;1
+HPJK7;Harry Potter and The Deathly Hallows;JK Rowling;Bloomsbury Publ.;0
