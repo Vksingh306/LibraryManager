@@ -40,7 +40,7 @@ int main()
 
     rewind(fileptr1);
 
-    printf(" \n Enter the row of the book to be removed:");
+    printf(" \n Enter the Last digit of the ID of the book to be removed:");
 
     scanf("%d", &delete_line);
 
