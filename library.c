@@ -437,108 +437,126 @@ void search()
 
 
 //========================================VK START===============================================================
+
 void main()
 {
     initialize();
 
-    char option_ad , user_id[10];
+    char option_ad , user_id[10] , choice;
     int login_access = 0;
 	
 	printf("IISER Kolkata Library Catalogue \n");
-
-    while(login_access==0)
-    {
-        printf("\nEnter your ID to Log In\n");
-        scanf(" %s" , user_id);
-        // Check if the provided id matches that in the file 
-        login_access = login(user_id);
-    }
-	printf("Welcome  %s\n", user_id);
-    printf("Login Successful!!\n");
-    printf("Logged in as %s\n" , user_id);
-    int user_pos = which_user(user_id);
-    int book_pos;
-
-    while(1)
-    {
-        switch (login_access)
-        {
-            case 1:  //USER
-                printf("Privilege : User\n\n");
-                printf("1 : Issue Book\n"); 
-                printf("2 : Return Book\n");
-                printf("3 : Search Book\n");
-                printf("Enter your choice : ");
-                scanf(" %c" , &option_ad);
-                switch(option_ad)
-                {
-                    case '1' :
-                        printf("Issue book\n");
-                        printf("Enter Books ID of book to be issued\n");
-                        scanf(" %s" , book_id);
-                        book_pos = which_book(book_id);
-                        book_issue(users[user_pos],books[book_pos]);
-                        break;
-                    case '2' :
-                        printf("Return book\n");
-                        printf("Enter Books ID of book to be returned\n");
-                        scanf(" %s" , book_id);
-                        book_pos = which_book(book_id);
-                        book_return(users[user_pos],books[book_pos]);
-                        break;
-                    case '3' :
-                        // Add function to search book - TBD : Perry
-                        //printf
-                        break;
-                    default:
-                        printf("Please choose a valid option\n");
-                        break;
-                }
-                break;
-            
-            case 2:  //ADMIN
-                printf("Privilege : Admin\n\n");
-                printf("1 : Add Book\n"); 
-                printf("2 : Delete Book\n");
-                printf("3 : Edit Book\n");
-                printf("4 : Search Book\n");
-                printf("Enter your choice : ");
-                scanf(" %c" , &option_ad);
-                switch(option_ad)
-                {
-                    case '1' :
-                        printf("Add book\n");
-                        add_book();
-                        break;
-                    case '2' :
-                        printf("Delete book\n");
-                        delete_book();
-                        break;
-                    case '3' :
-                        printf("Updating book\n");
-                        printf("Delete previous record\n");
-                        delete_book();
-                        printf("Enter new record\n");
-                        add_book();
-                        break;
-                    case '4' :
-                        // Add function to search book - TBD : Perry
-                        //printf
-                        break;
-                    default:
-                        printf("Please choose a valid option\n");
-                        break;
-                }
-                break;
-            default:
-                break;
-        }
-        printf("Do you want to do anything else? If yes, enter 1. If no, enter 2");
-        int n;
-        scanf("%d",&n);
-        if (n==2)
-            break;
-    }
+	
+	printf("1 : Log In\n");
+	printf("2 : Search for a book\n");
+	printf("Enter your choice : ");
+	scanf("%c" , choice);
+	switch(choice){
+	case '1' : 
+    	while(login_access==0)
+    	{
+    	    printf("\nEnter your ID to Log In\n");
+    	    scanf(" %s" , user_id);
+    	    // Check if the provided id matches that in the file 
+    	    login_access = login(user_id);
+    	}
+		printf("Welcome  %s\n", user_id);
+    	printf("Login Successful!!\n");
+    	printf("Logged in as %s\n" , user_id);
+    	int user_pos = which_user(user_id);
+    	int book_pos;
+	
+	    while(1)
+    	{
+    	    switch (login_access)
+    	    {
+    	        case 1:  //USER
+    	            printf("Privilege : User\n\n");
+    	            printf("1 : Issue Book\n"); 
+    	            printf("2 : Return Book\n");
+    	            printf("3 : Search Book\n");
+    	            printf("Enter your choice : ");
+    	            scanf(" %c" , &option_ad);
+    	            switch(option_ad)
+    	            {
+    	                case '1' :
+    	                    printf("Issue book\n");
+    	                    printf("Enter Books ID of book to be issued\n");
+    	                    scanf(" %s" , book_id);
+    	                    book_pos = which_book(book_id);
+    	                    book_issue(users[user_pos],books[book_pos]);
+    	                    break;
+    	                case '2' :
+    	                    printf("Return book\n");
+    	                    printf("Enter Books ID of book to be returned\n");
+    	                    scanf(" %s" , book_id);
+    	                    book_pos = which_book(book_id);
+    	                    book_return(users[user_pos],books[book_pos]);
+    	                    break;
+    	                case '3' :
+    	                    // Add function to search book - TBD : Perry
+    	                    //printf
+    	                    break;
+    	                default:
+    	                    printf("Please choose a valid option\n");
+    	                    break;
+    	            }
+    	            break;
+    	        
+    	        case 2:  //ADMIN
+    	            printf("Privilege : Admin\n\n");
+    	            printf("1 : Add Book\n"); 
+    	            printf("2 : Delete Book\n");
+    	            printf("3 : Edit Book\n");
+    	            printf("4 : Search Book\n");
+    	            printf("Enter your choice : ");
+    	            scanf(" %c" , &option_ad);
+    	            switch(option_ad)
+    	            {
+    	                case '1' :
+    	                    printf("Add book\n");
+    	                    add_book();
+    	                    break;
+    	                case '2' :
+    	                    printf("Delete book\n");
+    	                    delete_book();
+    	                    break;
+    	                case '3' :
+    	                    printf("Updating book\n");
+    	                    printf("Delete previous record\n");
+    	                    delete_book();
+    	                    printf("Enter new record\n");
+    	                    add_book();
+    	                    break;
+    	                case '4' :
+    	                    // Add function to search book - TBD : Perry
+    	                    //printf
+    	                    break;
+    	                default:
+    	                    printf("Please choose a valid option\n");
+    	                    break;
+    	            }
+    	            break;
+    	        default:
+    	            break;
+    	    }
+    	    printf("Do you want to exit? If yes, enter 1. If no, enter 2");
+    	    int n;
+    	    scanf("%d",&n);
+    	    if (n==1)
+    	        break;
+    	}
+    break;
+    
+    case '2' :
+    	// Add function to search book - TBD : Perry
+    	//printf
+    break;
+    
+    default :
+    	printf("Please choose a valid input\n");
+    break;
+    	
     update_records();
 }
 //========================================VK END=================================================================
