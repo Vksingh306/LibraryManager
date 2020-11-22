@@ -3,28 +3,31 @@ Instruction Manual:
 
 This is a text-based interactive library system designed for university libraries using C programming. 
 Each user has been assigned a unique login id with which they can log into the system.
+The student IDs begin with 'S', faculty IDs with 'F' and admin IDs with 'A'.
 
- In case of student ids (eg. S001, S002,…), please follow the instructions mentioned below.
-1.	Students are allowed to access the following facilities upon successful login –
-      a.Issuing a book
-      b.Returning an issued book
-      c.Search  for specific titles in the library database
-
-2.First, run the program library.c using a C-complier. The interface will provide the following options:  
+First, place the files library.c, users.txt and books.txt in the same directory. Then, move to that directory and run the program library.c using a C-complier. The interface will provide the following options:  
 
     1 : Log In
     2 : Search for a book
+    3 : Exit
     Enter your choice :
 
-Press ‘1’ to go to the login prompt or ‘2’ for searching for titles in the library database
+Press ‘1’ to go to the login prompt or ‘2’ for searching for titles in the library database or '3' to exit the program
 
-3.In case of Log in, you will be asked your login id:
+In case of Log in, you will be asked your login id:
 
   Enter your ID to Log In
 
 Enter your login id to successfully login into the system. In case of a valid user id, the interface will display the message “Login Success!”, otherwise it will show “User doesn't exist”
+----------------------------------------------------------------------------------------------------------------------------------------
 
-4.Upon successful login, the interface displays the message:
+In case of student ids (eg. S001, S002,…), please follow the instructions mentioned below.
+1.	Students are allowed to access the following facilities upon successful login –
+      1.Issuing a book
+      2.Returning an issued book
+      3.Search  for specific titles in the library database
+
+2.Upon successful login, the interface displays the message:
 
     Privilege : User
     1 : Issue Book
@@ -34,40 +37,26 @@ Enter your login id to successfully login into the system. In case of a valid us
 
 Press 1,2 or 3 according to the facility the user wants to avail. Upon issuing and return, the user will be asked to provide the book id for issue or return. In case of invalid book id, the interface will display the message “Please choose a valid option”. 
 
-5.	The maximum number of books a student can issue at any particular time is 3. Unless they return atleast 1 book, they will not be allowed to issue any more books.
+3.	The maximum number of books a student can issue at any particular time is 3. Unless they return atleast 1 book, they will not be allowed to issue any more books.
 
-6.	In case of a particular book having less than 3 copies available in the library, students will not be allowed to issue such books.
+4.	In case of a particular book having less than 3 copies available in the library, students will not be allowed to issue such books.
 
-7.	For books with less than 6 copies available in the library, the book will be issued for duration of 20 days. Otherwise, the duration for issuing a book will be 30 days.
+5.	For books with less than 6 copies available in the library, the book will be issued for duration of 20 days. Otherwise, the duration for issuing a book will be 30 days.
 
-8.	After each facility use, a message will be displayed “Do you want to exit? If yes, enter 1. If no, enter 2” Enter 1 to exit the system or 2 to use additional facilities.
+6.	After each facility use, a message will be displayed “Do you want to exit? If yes, enter 1. If no, enter 2” Enter 1 to exit the system or 2 to use additional facilities.
 
+7. Instructions for searching to follow.
 
-
-
+------------------------------------------------------------------------------------------------------------------------------------------
 
 In case of faculty ids (eg. F001, F002,…), please follow the instructions mentioned below.
 
-1.Faculty are allowed to access the following facilities upon successful login –
-     a.Issuing a book
-     b.Returning an issued book
-     c.Search  for specific titles in the library database
+1. Faculties are allowed to access the following facilities upon successful login –
+      1.Issuing a book
+      2.Returning an issued book
+      3.Search  for specific titles in the library database
 
-2.First, run the program library.c using a C-complier. The interface will provide the following options:  
-
-    1 : Log In
-    2 : Search for a book
-    Enter your choice :
-
-Press ‘1’ to go to the login prompt or ‘2’ for searching for titles in the library database
-
-3.In case of Log in, you will be asked your login id:
-
-   Enter your ID to Log In
-
-Enter your login id to successfully login into the system. In case of a valid user id, the interface will display the message “Login Success!”, otherwise it will show “User doesn't exist”
-
-4.Upon successful login, the interface displays the message:
+2.Upon successful login, the interface displays the message:
 
      Privilege : User
      1 : Issue Book
@@ -77,16 +66,19 @@ Enter your login id to successfully login into the system. In case of a valid us
 
 Press 1,2 or 3 according to the facility the user wants to avail. Upon issuing and return, the user will be asked to provide the book id for issue or return. In case of invalid book id, the interface will display the message “Please choose a valid option”. 
 
-5.The maximum number of books a faculty can issue at any particular time is 6. Unless they return at least 1 book, they will not be allowed to issue any more books.
+3.The maximum number of books a faculty can issue at any particular time is 6. Unless they return at least 1 book, they will not be allowed to issue any more books.
 
-6.In case of a particular book having less than 3 copies available in the library, faculty will be allowed to issue such books on the condition that the duration of issuing such books will be 10 days.
+4.In case of a particular book having less than 3 copies available in the library, faculty will be allowed to issue such books on the condition that the duration of issuing such books will be 10 days.
 
-7.For books with less than 6 copies available in the library, the book will be issued for duration of 20 days. Otherwise, the duration for issuing a book will be 30 days.
+5.For books with less than 6 copies available in the library, the book will be issued for duration of 20 days. Otherwise, the duration for issuing a book will be 30 days.
 
-8.After each facility use, a message will be displayed “Do you want to exit? If yes, enter 1. If no, enter 2” Enter 1 to exit the system or 2 to use additional facilities.
+6.After each facility use, a message will be displayed “Do you want to exit? If yes, enter 1. If no, enter 2” Enter 1 to exit the system or 2 to use additional facilities.
 
+7. Instructions for searching to follow.
 
-In case of admin id, the system allows privileges for making changes to the database including adding, deleting and editing books.
+----------------------------------------------------------------------------------------------------------------------------------------
+
+In case of admin id(A001, A002,…) , the system allows privileges for making changes to the database including adding, deleting and editing books.
 
 1.Upon logging in with the admin id at the login prompt, the system displays the following message:
 
@@ -102,14 +94,60 @@ Upon pressing the option for the required facility, the admin will be directed t
 2.For adding a book, the message displayed will be:
 
     Enter details of the book:
-    ID ; Title ; Author ; Publisher ; Number of Copies
+
+Then, the admin needs to enter the respective details being requested one by one, namely,
+ID, Title, Author, Publisher, Number of Copies.
+After entering the last detail, no message will be shown. Here, the admin can enter 1 to exit the program or 2 to continue.
+
 
 The admin needs to enter the details of the book in the exact format as mentioned. Upon successful details, the message displayed will be:
 
 Successfully added the Book to the Library.
 
-3.For deleting a book, the prompt will ask for the book id. In case of an invalid id, there will be a message “Book not found”
+3.For deleting a book, the prompt will ask for the book id. In case of an invalid id, there will be a message “Book not found”.
 
 4.After each facility use, a message will be displayed “Do you want to exit? If yes, enter 1. If no, enter 2” Enter 1 to exit the system or 2 to use additional facilities.
 
+5. Instructions for searching to follow.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Searching:
+ In all of the above cases, when the option of searching is chosen, a message "Input search term :" will be displayed.
+On entering a query, the system will display the details of all books in the library matching the query.
+An exact match is required for book ID. 
+For the other fields (Title, Author, Publisher), an exact match will return trigger a result.
+Also, if the query contains a single word, then a result will be triggered for at least one word of the above 3 fields matching the query. The search function is case insensitive.
+
+Updation:
+After each run of the program, UPDATED records are stored in the files books.txt and users.txt.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+System Requirements
+The program has been tested on Windows 10 and Linux kUbuntu. It is expected to work on other Windows and Linux OS as well.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Database Conventions
+The book details are stored in the file books.txt.
+The fields are in the order (ID, Title, Author, Publisher, Number of Copies) and are separated by semicolons.
+Each book detail is in a new line.
+The book IDs must start with a capital alphabet.
+
+The user details are stored in the file users.txt.
+The fields are in the order (ID, Issued books array) and are separated by semicolons.
+The issued array contains the book IDs of the books issued by a user and are separated by pipe (|).
+Note that each line must end in a pipe.
+Each book is in a new line.
+The user IDs must start with 'A', 'F' or 'S'.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Modularization:
+The code is broken up into segments for which one group member is responsible. This is denoted by comments in the code.
+Briefly,
+Interface: Vivek Kumar Singh (16MS204)
+Search: Ashwini Kumar (16MS114)
+Login and instruction manual: Ankit Basak (16MS056)
+Admin function [Add, delete books]: Prajwal Panda (16MS085)
+User functions [Issue, return] and File IO: Agnibha Banerjee (16MS076)
 
