@@ -12,4 +12,7 @@ RUD2;Real and Complex Analysis;Walter Rudin;Tata Mc-Graw Hill;2
 RUD3;Functional Analysis;Walter Rudin;Tata Mc-Graw Hill;3
 BLAH1;Quantum Computing; David McMagan;Weily Inter-Science;5
 BLAH2;Introduction to Quantum Mechanics, David J. Griffiths;Prentice Hall;6
-BLAH3;
+BLAH3;Advanced Solid State Physics;Philip Phillips;Cambridge University Press;4
+BLAH4;Quantum Field Theory;Tom Lancaster and Stephen J Blundel;Oxford;4
+BLAH5;Solid State Physics, Chaikin and Lubensky;Cambridge university Press;4
+BLAH6;Solid State Physics;Ashcroft and Mermin;Harcourt College Publishers;8
