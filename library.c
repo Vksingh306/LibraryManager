@@ -515,8 +515,6 @@ void main()
     	    scanf(" %s" , user_id);
     	    // Check if the provided id matches that in the file 
     	    login_access = login(user_id);
-            if (login_access==0)
-                printf("\nInvalid ID\n");
     	}
 		printf("Welcome  %s\n", user_id);
     	printf("Login Successful!\n");
