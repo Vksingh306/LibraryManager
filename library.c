@@ -498,17 +498,18 @@ void main()
     int login_access = 0;
 	printf("===================================\n");
 	printf("IISER Kolkata Library Catalogue \n");
-    printf("===================================\n");
+    	printf("===================================\n");
 
 	printf("1 : Log In\n");
 	printf("2 : Search for a book\n");
-    printf("3 : Exit\n");
+    	printf("3 : Exit\n");
 	printf("Enter your choice : ");
-	scanf(" %c" , &choice);
+	//Asks the user to log in or search for a book without logging in or to exit
+	scanf(" %c" , &choice);			
 
 	switch(choice)
     {
-	case '1' : 
+	case '1' :		//Log In 
     	while(login_access==0)
     	{
     	    printf("\nEnter your ID to Log In\n");
@@ -521,6 +522,7 @@ void main()
 		printf("Welcome  %s\n", user_id);
     	printf("Login Successful!\n");
     	printf("Logged in as %s\n" , user_id);
+	//Print the books user currently has issued
     	int user_pos = which_user(user_id);
         printf("Issued books:\n");
         for (int i=0; i<N_ALLOWED_F;i++)
@@ -532,7 +534,7 @@ void main()
 	
 	    while(1)
     	{
-    	    switch (login_access)
+    	    switch (login_access)		//This divides the log in as either User or Admin
     	    {
     	        case 1:  //USER
     	            printf("\nPrivilege : User\n\n");
@@ -543,7 +545,7 @@ void main()
     	            scanf(" %c" , &option_ad);
     	            switch(option_ad)
     	            {
-    	                case '1' :
+    	                case '1' :	//Issue Books
     	                    printf("Issue book\n");
     	                    printf("Enter Books ID of book to be issued\n");
                             char book_id[10];
@@ -551,17 +553,17 @@ void main()
     	                    book_pos = which_book(book_id);
     	                    book_issue(users[user_pos],books[book_pos]);
     	                    break;
-    	                case '2' :
+    	                case '2' :	//Return Books
     	                    printf("Return book\n");
     	                    printf("Enter Books ID of book to be returned\n");
     	                    scanf(" %s" , book_id);
     	                    book_pos = which_book(book_id);
     	                    book_return(users[user_pos],books[book_pos]);
     	                    break;
-    	                case '3' :
+    	                case '3' :	//Search books
     	                    search();
     	                    break;
-    	                default:
+    	                default:	
     	                    printf("Please choose a valid option\n");
     	                    break;
     	            }
@@ -577,22 +579,22 @@ void main()
     	            scanf(" %c" , &option_ad);
     	            switch(option_ad)
     	            {
-    	                case '1' :
+    	                case '1' :	//Add book
     	                    printf("Add book\n");
     	                    add_book();
     	                    break;
-    	                case '2' :
+    	                case '2' :	//Delete book
     	                    printf("Delete book\n");
     	                    delete_book();
     	                    break;
-    	                case '3' :
+    	                case '3' :	//Update book record
     	                    printf("Updating book\n");
     	                    printf("Delete previous record\n");
     	                    delete_book();
     	                    printf("Enter new record\n");
     	                    add_book();
     	                    break;
-    	                case '4' :
+    	                case '4' :	//Search a book
     	                    search();
     	                    break;
     	                default:
@@ -612,11 +614,11 @@ void main()
     	}
         break;
     
-    case '2' :
+    case '2' :		//this is a case for the very first 'switch' prompting user to search a book without log in
         search();
         break;
 
-    case '3':
+    case '3':		//Exit
         break;
     
     default :
