@@ -172,7 +172,7 @@ int n_issued(struct user x)
     int count = 0;
     for(int i = 0; i < N_ALLOWED_F; i++)
     {
-        if(strcmp(x.issued[i],"\0")!=0)
+        if((x.issued[i][0]>=65) && (x.issued[i][0]<=90))
             count++;
     }
     return(count);
@@ -300,20 +300,30 @@ void add_book()
     }
 
     /* Input data to append from user */
-    char str[1000];
-    printf("\nEnter details of the book:\n ID ; Title ; Author ; Publisher ; Number of Copies\n ");
-    scanf("%s",str);
+    char id[10],title[100],auth[50],publ[50];
+    int n;
+    printf("\nEnter details of the book:\n");
+    printf("ID: ");
+    fflush(stdin);
+    gets(id);
+    fflush(stdin);
+    printf("\nTitle: ");
+    gets(title);
+    fflush(stdin);
+    printf("\nAuthor: ");
+    gets(auth);
+    fflush(stdin);
+    printf("\nPublisher: ");
+    gets(publ);
+    fflush(stdin);
+    printf("\nNumber of Copies: (Then enter 1 to exit, 2 to do something else)\n");
+    scanf(" %d\n",&n);
 
-    char* token = strtok(str, ";");
-    strcpy(books[pos].book_id,token);
-    token = strtok(NULL, ";");
-    strcpy(books[pos].title,token);
-    token = strtok(NULL, ";");
-    strcpy(books[pos].auth,token);
-    token = strtok(NULL, ";");
-    strcpy(books[pos].publ,token);
-    token = strtok(NULL, ";");
-    books[pos].n_copies = atoi(token);
+    strcpy(books[pos].book_id,id);
+    strcpy(books[pos].title,title);
+    strcpy(books[pos].auth,auth);
+    strcpy(books[pos].publ,publ);
+    books[pos].n_copies = n;
 
     books_in_lib++;
     /* Print file contents after appending string */
@@ -342,6 +352,7 @@ void delete_book()
         strcpy(books[i].publ,books[i+1].publ);
         books[i].n_copies = books[i+1].n_copies;
     }
+    printf("Book succesfully deleted.\n");
     books_in_lib--;
 
 }
@@ -372,25 +383,26 @@ void update_records()
     i = 0;
     int j = 0;
     //USERS NOT  GETTING UPDATED
-    // fp = fopen(filename2, "w");
+    fp = fopen(filename2, "w");
 
-    // if (fp == NULL)
-    // {
-    //     printf("Could not open file %s",filename2);
-    //     return;
-    // }
-    // while (i<users_in_lib)
-    // {
-    //     fprintf(fp,"%s;",users[i].user_id);
-    //     j = 0;
-    //     while(users[i].issued[j]!=NULL)
-    //     {
-    //         fprintf(fp,"%s|",users[i].issued[j]);
-    //         j++;
-    //     }
-    //     fprintf(fp,"\n");
-    //     i++;
-    // }
+    if (fp == NULL)
+    {
+        printf("Could not open file %s",filename2);
+        return;
+    }
+    while (i<users_in_lib)
+    {
+        fprintf(fp,"%s;",users[i].user_id);
+        j = 0;
+        while((users[i].issued[j][0]>=65) && (users[i].issued[j][0]<=90)) //Checking for Caps letter
+        {
+            fprintf(fp,"%s|",users[i].issued[j]);
+            j++;
+        }
+        fprintf(fp,"");
+        fprintf(fp,"\n");
+        i++;
+    }
 
     fclose(fp);
 }
@@ -432,9 +444,55 @@ int login(char userid[]) //to check against list the input username (0 for not f
 
 
 //=======================================PARRY START=============================================================
-void search()
+void search()  // search function
 {
-    //some shit
+	char query_long[100];
+	printf("Input search term :  ");
+	scanf("%s", &query_long);
+	printf("Book ID    Book Title    Author    Publisher    Available Copies\n");
+	for (int i = 0; i < N_BOOKS; i++)
+	{
+		if (strcasecmp(books[i].book_id, query_long) == 0 || strcasecmp(books[i].title, query_long) == 0 || strcasecmp(books[i].auth, query_long) == 0 || strcasecmp(books[i].publ, query_long) == 0)
+		{
+			printf("Exactly Matched Results : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
+		}
+
+        // Searching in parts for Title, Author and Publisher fields
+        char query_title_c[100], query_auth_c[100], query_publ_c[100];
+        strcpy(query_title_c,books[i].title);
+        strcpy(query_auth_c,books[i].auth);
+        strcpy(query_publ_c,books[i].publ);
+
+        char* token = strtok(query_title_c, " ");
+        while(token != NULL)
+        {
+            if (strcasecmp(query_long, token) == 0)
+            {
+                printf("Matched Results in Title : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
+            }
+            token = strtok(NULL, " ");
+        }
+
+        char* token1 = strtok(query_auth_c, " ");
+        while(token1 != NULL)
+        {
+            if (strcasecmp(query_long, token1) == 0)
+            {
+                printf("Matched Results in Author : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
+            }
+            token1 = strtok(NULL, " ");
+        }
+
+        char* token2 = strtok(query_publ_c, " ");
+        while(token2 != NULL)
+        {
+            if (strcasecmp(query_long, token2) == 0)
+            {
+                printf("Matched Results in Publisher : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
+            }
+            token2 = strtok(NULL, " ");
+        }
+	}
 }
 //========================================PARRY END================================================================
 
@@ -445,12 +503,14 @@ void main()
 {
     initialize();
     char option_ad , user_id[10] , choice;
+    choice = '0';
     int login_access = 0;
 	
 	printf("IISER Kolkata Library Catalogue \n");
 	
 	printf("1 : Log In\n");
 	printf("2 : Search for a book\n");
+    printf("3 : Exit\n");
 	printf("Enter your choice : ");
 	scanf(" %c" , &choice);
 
@@ -463,11 +523,19 @@ void main()
     	    scanf(" %s" , user_id);
     	    // Check if the provided id matches that in the file 
     	    login_access = login(user_id);
+            if (login_access==0)
+                printf("\nInvalid ID\n");
     	}
 		printf("Welcome  %s\n", user_id);
-    	printf("Login Successful!!\n");
+    	printf("Login Successful!\n");
     	printf("Logged in as %s\n" , user_id);
     	int user_pos = which_user(user_id);
+        printf("Issued books:\n");
+        for (int i=0; i<N_ALLOWED_F;i++)
+        {
+            if ((users[user_pos].issued[i][0]>=65) && (users[user_pos].issued[i][0]<=90))
+                printf("%s, ",users[user_pos].issued[i]);
+        }
     	int book_pos;
 	
 	    while(1)
@@ -475,7 +543,7 @@ void main()
     	    switch (login_access)
     	    {
     	        case 1:  //USER
-    	            printf("Privilege : User\n\n");
+    	            printf("\nPrivilege : User\n\n");
     	            printf("1 : Issue Book\n"); 
     	            printf("2 : Return Book\n");
     	            printf("3 : Search Book\n");
@@ -499,8 +567,7 @@ void main()
     	                    book_return(users[user_pos],books[book_pos]);
     	                    break;
     	                case '3' :
-    	                    // Add function to search book - TBD : Perry
-    	                    //printf
+    	                    search();
     	                    break;
     	                default:
     	                    printf("Please choose a valid option\n");
@@ -509,7 +576,7 @@ void main()
     	            break;
     	        
     	        case 2:  //ADMIN
-    	            printf("Privilege : Admin\n\n");
+    	            printf("\nPrivilege : Admin\n\n");
     	            printf("1 : Add Book\n"); 
     	            printf("2 : Delete Book\n");
     	            printf("3 : Edit Book\n");
@@ -534,14 +601,14 @@ void main()
     	                    add_book();
     	                    break;
     	                case '4' :
-    	                    // Add function to search book - TBD : Perry
-    	                    //printf
+    	                    search();
     	                    break;
     	                default:
     	                    printf("Please choose a valid option\n");
     	                    break;
     	            }
     	            break;
+                
     	        default:
     	            break;
     	    }
@@ -551,18 +618,19 @@ void main()
     	    if (n==1)
     	        break;
     	}
-    break;
+        break;
     
     case '2' :
-    	// Add function to search book - TBD : Perry
-    	//printf
-    break;
+        search();
+        break;
+
+    case '3':
+        break;
     
     default :
     	printf("Please choose a valid input\n");
-    break;
+        break;
     }
-    	
     update_records();
 }
 //========================================VK END=================================================================
