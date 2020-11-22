@@ -10,3 +10,21 @@ LA1;Linear Algebra;Kenneth M Hoffman, Ray Kunze;Pearson;5
 RUD1;Principles of Mathematical Analysis;Walter Rudin;Tata Mc-Graw Hill;3
 RUD2;Real and Complex Analysis;Walter Rudin;Tata Mc-Graw Hill;2
 RUD3;Functional Analysis;Walter Rudin;Tata Mc-Graw Hill;3
+HPJK1;Harry Potter and The Philosopher's Stone;JK Rowling;Bloomsbury Publ.;2
+HPJK2;Harry Potter and The Chamber of Secrets;JK Rowling;Bloomsbury Publ.;3
+HPJK3;Harry Potter and The Prisoner of Azkaban;JK Rowling;Bloomsbury Publ.;4
+HPJK4;Harry Potter and The Goblet of Fire;JK Rowling;Bloomsbury Publ.;5
+HPJK5;Harry Potter and The Order of the Phoenix;JK Rowling;Bloomsbury Publ.;6
+HPJK6;Harry Potter and The Half-Blood Prince;JK Rowling;Bloomsbury Publ.;1
+HPJK7;Harry Potter and The Deathly Hallows;JK Rowling;Bloomsbury Publ.;0
+SUTM1;A Course in Calculus and Real Analysis; Ghorpade, Sudhir R., Limaye, Balmohan;Springer;5
+LA1;Linear Algebra;Kenneth M Hoffman, Ray Kunze;Pearson;5
+RUD1;Principles of Mathematical Analysis;Walter Rudin;Tata Mc-Graw Hill;3
+RUD2;Real and Complex Analysis;Walter Rudin;Tata Mc-Graw Hill;2
+RUD3;Functional Analysis;Walter Rudin;Tata Mc-Graw Hill;3
+BLAH1;Quantum Computing; David McMagan;Weily Inter-Science;5
+BLAH2;Introduction to Quantum Mechanics, David J. Griffiths;Prentice Hall;6
+BLAH3;Advanced Solid State Physics;Philip Phillips;Cambridge University Press;4
+BLAH4;Quantum Field Theory;Tom Lancaster and Stephen J Blundel;Oxford;4
+BLAH5;Solid State Physics, Chaikin and Lubensky;Cambridge university Press;4
+BLAH6;Solid State Physics;Ashcroft and Mermin;Harcourt College Publishers;8
