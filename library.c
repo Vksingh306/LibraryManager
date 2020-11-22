@@ -10,6 +10,7 @@
 static int books_in_lib;
 static int users_in_lib;
 
+//Struct object to store book details
 struct book
 {
     char book_id[10];
@@ -19,6 +20,7 @@ struct book
     int n_copies;
 } books[N_BOOKS];
 
+//Struct object to store user details
 struct user
 {
     char user_id[10]; 
@@ -26,11 +28,13 @@ struct user
 } users[N_USERS];
 
 //=======================================AGNI START==============================================================
-// reads books and users from file (ignore this function for now)
+// reads books and users from file
+// Writes them into the structs
 void initialize()
 {
     FILE *fp;
     char str[1000];
+    //Change path names as required
     char* filename1 = "books.txt";
     char* filename2 = "users.txt";
     fp = fopen(filename1, "r");
@@ -44,7 +48,6 @@ void initialize()
     while (fgets(str, 1000, fp) != NULL)
     {
         char* token = strtok(str, ";");
-        // each issue needs unique id
         strcpy(books[i].book_id,token);
         token = strtok(NULL, ";");
         strcpy(books[i].title,token);
@@ -189,7 +192,7 @@ int hasbook(struct user x, struct book y)
     return(0);
 }
 
-// book return
+// returns a book issued by the user
 void book_return(struct user x, struct book y)
 {
     int pos = -1;
@@ -215,7 +218,7 @@ void book_return(struct user x, struct book y)
     
 }
 
-//book issue
+// issues a book for the user
 void book_issue(struct user x, struct book y)
 {
     int status = 1;
@@ -267,29 +270,58 @@ void book_issue(struct user x, struct book y)
     }
 }
 
+//this function is run at the end of every run to store current records into file
+void update_records()
+{
+    /* File pointer to hold reference of input file */
+    FILE *fp;
 
+    char* filename1 = "books.txt";
+    char* filename2 = "users.txt";
+
+    fp = fopen(filename1, "w");
+    if (fp == NULL)
+    {
+        printf("Could not open file %s",filename1);
+        return;
+    }
+    int i = 0;
+
+    while (i<books_in_lib)
+    {
+        fprintf(fp,"%s;%s;%s;%s;%d\n",books[i].book_id,books[i].title,books[i].auth,books[i].publ,books[i].n_copies);
+        i++;
+    }
+    fclose(fp);
+
+    i = 0;
+    int j = 0;
+    fp = fopen(filename2, "w");
+
+    if (fp == NULL)
+    {
+        printf("Could not open file %s",filename2);
+        return;
+    }
+    while (i<users_in_lib)
+    {
+        fprintf(fp,"%s;",users[i].user_id);
+        j = 0;
+        while((users[i].issued[j][0]>=65) && (users[i].issued[j][0]<=90)) //Checking for Caps letter
+        {
+            fprintf(fp,"%s|",users[i].issued[j]);
+            j++;
+        }
+        fprintf(fp,"\n");
+        i++;
+    }
+
+    fclose(fp);
+}
 //===================================================AGNI END================================================================
 
 //=================================================PANDA START=============================================================
-
-/**
- * Reads a file character by character 
- * and prints on console.
- * 
- * @fPtr    Pointer to FILE to read.
- */
-void readFile(FILE * fP)
-{
-    char ch;
-    do 
-    {
-        ch = fgetc(fP);
-
-        putchar(ch);
-
-    } while (ch != EOF);
-}
-
+// admin function to add a book to the library
 void add_book()
 {
     int pos = books_in_lib;
@@ -333,10 +365,10 @@ void add_book()
     books[pos].n_copies = n;
 
     books_in_lib++;
-    /* Print file contents after appending string */
     printf("\nSuccessfully added the Book to the Library. \n");
 }
 
+// admin function to delete a book from the library
 void delete_book()
 {
     int pos = -1;
@@ -363,55 +395,6 @@ void delete_book()
     books_in_lib--;
 
 }
-
-void update_records()
-{
-    /* File pointer to hold reference of input file */
-    FILE *fp;
-
-    char* filename1 = "books.txt";
-    char* filename2 = "users.txt";
-
-    fp = fopen(filename1, "w");
-    if (fp == NULL)
-    {
-        printf("Could not open file %s",filename1);
-        return;
-    }
-    int i = 0;
-
-    while (i<books_in_lib)
-    {
-        fprintf(fp,"%s;%s;%s;%s;%d\n",books[i].book_id,books[i].title,books[i].auth,books[i].publ,books[i].n_copies);
-        i++;
-    }
-    fclose(fp);
-
-    i = 0;
-    int j = 0;
-    //USERS NOT  GETTING UPDATED
-    fp = fopen(filename2, "w");
-
-    if (fp == NULL)
-    {
-        printf("Could not open file %s",filename2);
-        return;
-    }
-    while (i<users_in_lib)
-    {
-        fprintf(fp,"%s;",users[i].user_id);
-        j = 0;
-        while((users[i].issued[j][0]>=65) && (users[i].issued[j][0]<=90)) //Checking for Caps letter
-        {
-            fprintf(fp,"%s|",users[i].issued[j]);
-            j++;
-        }
-        fprintf(fp,"\n");
-        i++;
-    }
-
-    fclose(fp);
-}
 //==================================================PANDA END==============================================================
 
 //========================================ANKIT START===========================================================
@@ -423,7 +406,8 @@ int is_admin(struct user x)
     return(0);
 }
 
-int login(char userid[]) //to check against list the input username (0 for not found, 1 for user, 2 for admin)
+//to check against list the input username (0 for not found, 1 for user, 2 for admin)
+int login(char userid[]) 
 {
     
     int var_login = 0; //binary variable that decides if login happens or not, default is logged out
@@ -450,7 +434,8 @@ int login(char userid[]) //to check against list the input username (0 for not f
 
 
 //=======================================PARRY START=============================================================
-void search()  // search function
+// search function that can search for exact or word matches
+void search()  
 {
 	char query_long[100];
 	printf("Input search term :  ");
@@ -504,16 +489,17 @@ void search()  // search function
 
 
 //========================================VK START===============================================================
-
+// the main interface with which the user/admin interacts with the library
 void main()
 {
     initialize();
     char option_ad , user_id[10] , choice;
     choice = '0';
     int login_access = 0;
-	
+	printf("===================================\n");
 	printf("IISER Kolkata Library Catalogue \n");
-	
+    printf("===================================\n");
+
 	printf("1 : Log In\n");
 	printf("2 : Search for a book\n");
     printf("3 : Exit\n");
