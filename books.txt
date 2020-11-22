@@ -10,4 +10,6 @@ LA1;Linear Algebra;Kenneth M Hoffman, Ray Kunze;Pearson;5
 RUD1;Principles of Mathematical Analysis;Walter Rudin;Tata Mc-Graw Hill;3
 RUD2;Real and Complex Analysis;Walter Rudin;Tata Mc-Graw Hill;2
 RUD3;Functional Analysis;Walter Rudin;Tata Mc-Graw Hill;3
-BLAH1;
+BLAH1;Quantum Computing; David McMagan;Weily Inter-Science;5
+BLAH2;Introduction to Quantum Mechanics, David J. Griffiths;Prentice Hall;6
+BLAH3;
