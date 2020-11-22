@@ -44,7 +44,7 @@ void initialize()
         return;
     }
     int i = 0;
-    
+    //separates string by ;
     while (fgets(str, 1000, fp) != NULL)
     {
         char* token = strtok(str, ";");
@@ -71,12 +71,14 @@ void initialize()
         printf("Could not open file %s",filename2);
         return;
     }
+	//separates string by ;
     while (fgets(str, 1000, fp) != NULL)
     {
         char* token = strtok(str, ";");
         strcpy(users[i].user_id,token);
         token = strtok(NULL, ";");
-
+	    
+	//separates string by |
         char* token2 = strtok(token, "|");
         j = 0;
         while(token2 != NULL)
@@ -135,6 +137,7 @@ int which_user(char userid[])
 int n_available(struct book x)
 {
     int count = 0;
+	//counting number of copies issued by users
     for(int i = 0; i < users_in_lib; i++)
     {
         for(int j = 0; j < N_ALLOWED_F; j++)
@@ -175,6 +178,7 @@ int n_issued(struct user x)
     int count = 0;
     for(int i = 0; i < N_ALLOWED_F; i++)
     {
+	    //checking for valid book ID first letter (uppercase letter)
         if((x.issued[i][0]>=65) && (x.issued[i][0]<=90))
             count++;
     }
@@ -196,6 +200,7 @@ int hasbook(struct user x, struct book y)
 void book_return(struct user x, struct book y)
 {
     int pos = -1;
+	//finding position of book in user's issued array
     for(int i = 0; i < N_ALLOWED_F; i++)
     {
         if(strcmp(x.issued[i],y.book_id)==0)
@@ -211,6 +216,7 @@ void book_return(struct user x, struct book y)
     {
         for(int i = pos; i < N_ALLOWED_F-1; i++)
         {
+		//shifting each book to the right of returned book by one unit to the left, thereby deleting it 
             strcpy(users[which_user(x.user_id)].issued[i],users[which_user(x.user_id)].issued[i+1]);
         }
         printf("\nBook has been returned.\n");
@@ -260,6 +266,7 @@ void book_issue(struct user x, struct book y)
     if(status == 1)
     {
         days = available_days(y);
+	    //adding book to issued books of user
         strcpy(users[which_user(x.user_id)].issued[n_issued(x)],y.book_id);
         printf("Book succesfully issued.\n");
         printf("You have issued it for %d days\n",days);
@@ -273,7 +280,7 @@ void book_issue(struct user x, struct book y)
 //this function is run at the end of every run to store current records into file
 void update_records()
 {
-    /* File pointer to hold reference of input file */
+    // File pointer to hold reference of input file 
     FILE *fp;
 
     char* filename1 = "books.txt";
@@ -307,7 +314,8 @@ void update_records()
     {
         fprintf(fp,"%s;",users[i].user_id);
         j = 0;
-        while((users[i].issued[j][0]>=65) && (users[i].issued[j][0]<=90)) //Checking for Caps letter
+	    //checking for valid book ID first letter (uppercase letter)
+        while((users[i].issued[j][0]>=65) && (users[i].issued[j][0]<=90)) 
         {
             fprintf(fp,"%s|",users[i].issued[j]);
             j++;
