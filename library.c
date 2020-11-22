@@ -437,11 +437,11 @@ int login(char userid[])
 // search function that can search for exact or word matches
 void search()  
 {
-	char query_long[100];
-	printf("Input search term :  ");
-	scanf("%s", query_long);
+	char query_long[100];   //initializing a char array
+	printf("Input search term :  ");       //prompt for inputing search string
+	scanf("%s", query_long);               // taking user inputed string and storing in the variable query_long
 	printf("Book ID    Book Title    Author    Publisher    Available Copies\n");
-	for (int i = 0; i < N_BOOKS; i++)
+	for (int i = 0; i < N_BOOKS; i++)     //a for loop to continuously compare the strings irrespective of case
 	{
 		if (strcasecmp(books[i].book_id, query_long) == 0 || strcasecmp(books[i].title, query_long) == 0 || strcasecmp(books[i].auth, query_long) == 0 || strcasecmp(books[i].publ, query_long) == 0)
 		{
@@ -454,10 +454,10 @@ void search()
         strcpy(query_auth_c,books[i].auth);
         strcpy(query_publ_c,books[i].publ);
 
-        char* token = strtok(query_title_c, " ");
+        char* token = strtok(query_title_c, " ");  //seperating strings from whitespaces
         while(token != NULL)
         {
-            if (strcasecmp(query_long, token) == 0)
+            if (strcasecmp(query_long, token) == 0) //if condition for comparing inputed search string and the seperated string using whitespace
             {
                 printf("Matched Results in Title : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
             }
