@@ -342,7 +342,7 @@ void add_book()
     /* Input data to append from user */
     char id[10],title[100],auth[50],publ[50],idc[10];
     int n;
-    printf("\nEnter details of the book:\n");
+    printf("\nEnter details of the book:\n");//taking inputs
     printf("Enter Here: ");
     fflush(stdin);
     fgets(idc,100,stdin);
@@ -366,7 +366,7 @@ void add_book()
     printf("\nNumber of Copies: (Then enter 1 to exit, 2 to do something else)\n");
     scanf(" %d\n",&n);
 
-    strcpy(books[pos].book_id,id);
+    strcpy(books[pos].book_id,id);//copying inputs to records
     strcpy(books[pos].title,title);
     strcpy(books[pos].auth,auth);
     strcpy(books[pos].publ,publ);
