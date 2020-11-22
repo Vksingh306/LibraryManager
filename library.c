@@ -461,27 +461,27 @@ void search()
             {
                 printf("Matched Results in Title : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
             }
-            token = strtok(NULL, " ");
+            token = strtok(NULL, " ");    //srtok needs NULL element to extract the next element in the string being splitted
         }
 
         char* token1 = strtok(query_auth_c, " ");
-        while(token1 != NULL)
+        while(token1 != NULL)  // strtok function returns NULL when pointer reaches the end. When that happens the while condition becomes false.
         {
-            if (strcasecmp(query_long, token1) == 0)
+            if (strcasecmp(query_long, token1) == 0) // looking for search term in authors column of database
             {
                 printf("Matched Results in Author : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
             }
-            token1 = strtok(NULL, " ");
+            token1 = strtok(NULL, " ");    //srtok needs NULL element to extract the next element in the string being splitted
         }
 
         char* token2 = strtok(query_publ_c, " ");
         while(token2 != NULL)
         {
-            if (strcasecmp(query_long, token2) == 0)
+            if (strcasecmp(query_long, token2) == 0)    // looking for search term in publisher column of database.
             {
                 printf("Matched Results in Publisher : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
             }
-            token2 = strtok(NULL, " ");
+            token2 = strtok(NULL, " ");       //srtok needs NULL element to extract the next element in the string being splitted
         }
 	}
 }
