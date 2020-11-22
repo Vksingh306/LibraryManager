@@ -1,4 +1,3 @@
-ID;Title;Author;Publisher;Number
 HPJK1;Harry Potter and The Philosopher's Stone;JK Rowling;Bloomsbury Publ.;2
 HPJK2;Harry Potter and The Chamber of Secrets;JK Rowling;Bloomsbury Publ.;3
 HPJK3;Harry Potter and The Prisoner of Azkaban;JK Rowling;Bloomsbury Publ.;4

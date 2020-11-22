@@ -31,8 +31,8 @@ void initialize()
 {
     FILE *fp;
     char str[1000];
-    char* filename1 = "D:\\OneDrive\\Desktop\\Programs\\CS3101\\My Tries\\books.txt";
-    char* filename2 = "D:\\OneDrive\\Desktop\\Programs\\CS3101\\My Tries\\users.txt";
+    char* filename1 = "books.txt";
+    char* filename2 = "users.txt";
     fp = fopen(filename1, "r");
     if (fp == NULL)
     {
@@ -300,21 +300,28 @@ void add_book()
     }
 
     /* Input data to append from user */
-    char id[10],title[100],auth[50],publ[50];
+    char id[10],title[100],auth[50],publ[50],idc[10];
     int n;
     printf("\nEnter details of the book:\n");
+    printf("Enter Here: ");
+    fflush(stdin);
+    fgets(idc,100,stdin);
     printf("ID: ");
     fflush(stdin);
-    gets(id);
+    fgets(id,100,stdin);
+    id[strcspn(id, "\n")] = '\0';
     fflush(stdin);
     printf("\nTitle: ");
-    gets(title);
+    fgets(title,100,stdin);
+    title[strcspn(title, "\n")] = '\0';
     fflush(stdin);
     printf("\nAuthor: ");
-    gets(auth);
+    fgets(auth,100,stdin);
+    auth[strcspn(auth, "\n")] = '\0';
     fflush(stdin);
     printf("\nPublisher: ");
-    gets(publ);
+    fgets(publ,100,stdin);
+    publ[strcspn(publ, "\n")] = '\0';
     fflush(stdin);
     printf("\nNumber of Copies: (Then enter 1 to exit, 2 to do something else)\n");
     scanf(" %d\n",&n);
@@ -362,8 +369,8 @@ void update_records()
     /* File pointer to hold reference of input file */
     FILE *fp;
 
-    char* filename1 = "D:\\OneDrive\\Desktop\\Programs\\CS3101\\My Tries\\books.txt";
-    char* filename2 = "D:\\OneDrive\\Desktop\\Programs\\CS3101\\My Tries\\users.txt";
+    char* filename1 = "books.txt";
+    char* filename2 = "users.txt";
 
     fp = fopen(filename1, "w");
     if (fp == NULL)
@@ -399,7 +406,6 @@ void update_records()
             fprintf(fp,"%s|",users[i].issued[j]);
             j++;
         }
-        fprintf(fp,"");
         fprintf(fp,"\n");
         i++;
     }
@@ -448,7 +454,7 @@ void search()  // search function
 {
 	char query_long[100];
 	printf("Input search term :  ");
-	scanf("%s", &query_long);
+	scanf("%s", query_long);
 	printf("Book ID    Book Title    Author    Publisher    Available Copies\n");
 	for (int i = 0; i < N_BOOKS; i++)
 	{
