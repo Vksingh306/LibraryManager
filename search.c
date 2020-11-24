@@ -50,37 +50,53 @@ void initialize()
 
 
 
-char* separate(char word[100])  //function for separating out words from strings
+void search()  
 {
-	static char wordlist[30][100];
-	int k=0;
-	char *ptr = strtok(word, " ");
-	while(ptr != NULL)
-	{
-		strcpy(wordlist[k], ptr);
-		k = ++k;
-		ptr = strtok(NULL, " ");
-	}
-	return wordlist;
-}
-
-
-
-
-
-
-void search()  // search function
-{
-	char query[100];
-	int j=0;
-	printf("Input search term :  ");
-	scanf("%s", &query);
+	char query_long[100];   //initializing a char array
+	printf("Input search term :  ");       //prompt for inputing search string
+	scanf("%s", query_long);               // taking user inputed string and storing in the variable query_long
 	printf("Book ID    Book Title    Author    Publisher    Available Copies\n");
-	for (int i = 0; i < N_BOOKS; i++)
+	for (int i = 0; i < N_BOOKS; i++)     //a for loop to continuously compare the strings irrespective of case
 	{
-		if (strcasecmp(books[i].book_id, query) == 0 || strcasecmp(books[i].title, query) == 0 || strcasecmp(books[i].auth, query) == 0 || strcasecmp(books[i].publ, query) == 0)
+		if (strcasecmp(books[i].book_id, query_long) == 0 || strcasecmp(books[i].title, query_long) == 0 || strcasecmp(books[i].auth, query_long) == 0 || strcasecmp(books[i].publ, query_long) == 0)
 		{
-			printf("Matched Results : \n %s    %s    %s    %s    %d", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
+			printf("Exactly Matched Results : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
 		}
+
+        // Searching in parts for Title, Author and Publisher fields
+        char query_title_c[100], query_auth_c[100], query_publ_c[100];
+        strcpy(query_title_c,books[i].title);
+        strcpy(query_auth_c,books[i].auth);
+        strcpy(query_publ_c,books[i].publ);
+
+        char* token = strtok(query_title_c, " ");  //seperating strings from whitespaces
+        while(token != NULL)
+        {
+            if (strcasecmp(query_long, token) == 0) //if condition for comparing inputed search string and the seperated string using whitespace
+            {
+                printf("Matched Results in Title : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
+            }
+            token = strtok(NULL, " ");    //srtok needs NULL element to extract the next element in the string being splitted
+        }
+
+        char* token1 = strtok(query_auth_c, " ");
+        while(token1 != NULL)  // strtok function returns NULL when pointer reaches the end. When that happens the while condition becomes false.
+        {
+            if (strcasecmp(query_long, token1) == 0) // looking for search term in authors column of database
+            {
+                printf("Matched Results in Author : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
+            }
+            token1 = strtok(NULL, " ");    //srtok needs NULL element to extract the next element in the string being splitted
+        }
+
+        char* token2 = strtok(query_publ_c, " ");
+        while(token2 != NULL)
+        {
+            if (strcasecmp(query_long, token2) == 0)    // looking for search term in publisher column of database.
+            {
+                printf("Matched Results in Publisher : \n %s    %s    %s    %s    %d\n", books[i].book_id, books[i].title, books[i].auth, books[i].publ, books[i].n_copies);
+            }
+            token2 = strtok(NULL, " ");       //srtok needs NULL element to extract the next element in the string being splitted
+        }
 	}
 }
